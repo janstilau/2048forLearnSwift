@@ -51,6 +51,7 @@ class GameBoardView: UIView{
     }
     
     func setupBackground(backgroundColor bgColor: UIColor, tileColor: UIColor){
+        backgroundColor = bgColor
         var xCursor = tilePadding
         var yCursor : CGFloat
         let bgRadius = (cornerRadius >= 2) ? cornerRadius - 2 : 0
@@ -68,6 +69,49 @@ class GameBoardView: UIView{
             xCursor += tilePadding + tileWidth
         }
     }
+    
+    func positionIsValid(pos: (Int, Int)) -> Bool {
+        let (x, y) = pos
+        return (x >= 0 && x < dimension && y >= 0 && y < dimension)
+    }
+    
+    
+    func insertTile(pos: (Int, Int), value: Int){
+        assert(positionIsValid(pos))
+        let (row, col) = pos
+        let x = tilePadding + CGFloat(col) * (tileWidth + tilePadding)
+        let y = tilePadding + CGFloat(row) * (tileWidth + tilePadding)
+        let r = (cornerRadius >= 2) ? cornerRadius - 2 : 0
+        
+        let tile = TileView.init(position: CGPointMake(x, y), width: tileWidth, value: value, radius: r, delegate: provider)
+        tile.layer.setAffineTransform(CGAffineTransformMakeScale(tilePopStartScale, tilePopStartScale))
+        addSubview(tile)
+        bringSubviewToFront(tile)
+        tiles[NSIndexPath.init(forRow: row, inSection: col)] = tile
+        
+        UIView.animateWithDuration(tileExpandTime, delay: tilePopDelay, options: UIViewAnimationOptions.TransitionNone, animations: { 
+            tile.layer.setAffineTransform(CGAffineTransformMakeScale(self.tilePopMaxScale, self.tilePopMaxScale))
+            }) { (finished) in
+                UIView.animateWithDuration(self.tileContractTime, animations: {
+                    tile.layer.setAffineTransform(CGAffineTransformIdentity)
+                })
+        }
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     
     
     
