@@ -15,11 +15,12 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view, typically from a nib.
     }
 
-    override func didReceiveMemoryWarning() {
-        super.didReceiveMemoryWarning()
-        // Dispose of any resources that can be recreated.
+    
+    @IBAction func btnAction(sender: AnyObject) {
+        
+        let game = NumberTileGameViewController.init(dimension: 4, threshold: 100)
+        presentViewController(game, animated: true, completion: nil)
     }
-
 
 }
 

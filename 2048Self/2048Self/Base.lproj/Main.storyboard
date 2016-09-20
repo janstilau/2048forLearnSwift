@@ -16,7 +16,20 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="736"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="UfI-xR-AmK">
+                                <rect key="frame" x="170" y="353" width="75" height="30"/>
+                                <state key="normal" title="开始游戏啦"/>
+                                <connections>
+                                    <action selector="btnAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="r3z-db-zH6"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="UfI-xR-AmK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="8Q6-cf-KUV"/>
+                            <constraint firstItem="UfI-xR-AmK" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="wUS-na-DYE"/>
+                        </constraints>
                     </view>
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina55"/>
                 </viewController>

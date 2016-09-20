@@ -13,6 +13,12 @@
 		15BD590E1D9105EF00646FC3 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 15BD590D1D9105EF00646FC3 /* Assets.xcassets */; };
 		15BD59111D9105EF00646FC3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15BD590F1D9105EF00646FC3 /* LaunchScreen.storyboard */; };
 		15BD591C1D9105EF00646FC3 /* _048SelfTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD591B1D9105EF00646FC3 /* _048SelfTests.swift */; };
+		15BD59291D9106B200646FC3 /* NumberTileGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD59281D9106B200646FC3 /* NumberTileGame.swift */; };
+		15BD592B1D9107D000646FC3 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD592A1D9107D000646FC3 /* GameModel.swift */; };
+		15BD592D1D9107FA00646FC3 /* GameBoardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD592C1D9107FA00646FC3 /* GameBoardView.swift */; };
+		15BD592F1D91092900646FC3 /* AccessoryViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD592E1D91092900646FC3 /* AccessoryViews.swift */; };
+		15BD59311D910BEE00646FC3 /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD59301D910BEE00646FC3 /* TileView.swift */; };
+		15BD59331D91114E00646FC3 /* AppearanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD59321D91114E00646FC3 /* AppearanceProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -36,6 +42,12 @@
 		15BD59171D9105EF00646FC3 /* 2048SelfTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = 2048SelfTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		15BD591B1D9105EF00646FC3 /* _048SelfTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = _048SelfTests.swift; sourceTree = "<group>"; };
 		15BD591D1D9105EF00646FC3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		15BD59281D9106B200646FC3 /* NumberTileGame.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberTileGame.swift; sourceTree = "<group>"; };
+		15BD592A1D9107D000646FC3 /* GameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
+		15BD592C1D9107FA00646FC3 /* GameBoardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameBoardView.swift; sourceTree = "<group>"; };
+		15BD592E1D91092900646FC3 /* AccessoryViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryViews.swift; sourceTree = "<group>"; };
+		15BD59301D910BEE00646FC3 /* TileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
+		15BD59321D91114E00646FC3 /* AppearanceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -79,6 +91,10 @@
 			children = (
 				15BD59061D9105EE00646FC3 /* AppDelegate.swift */,
 				15BD59081D9105EE00646FC3 /* ViewController.swift */,
+				15BD59281D9106B200646FC3 /* NumberTileGame.swift */,
+				15BD59321D91114E00646FC3 /* AppearanceProvider.swift */,
+				15BD59271D91064C00646FC3 /* Models */,
+				15BD59261D91064900646FC3 /* Views */,
 				15BD590A1D9105EE00646FC3 /* Main.storyboard */,
 				15BD590D1D9105EF00646FC3 /* Assets.xcassets */,
 				15BD590F1D9105EF00646FC3 /* LaunchScreen.storyboard */,
@@ -94,6 +110,24 @@
 				15BD591D1D9105EF00646FC3 /* Info.plist */,
 			);
 			path = 2048SelfTests;
+			sourceTree = "<group>";
+		};
+		15BD59261D91064900646FC3 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				15BD592C1D9107FA00646FC3 /* GameBoardView.swift */,
+				15BD592E1D91092900646FC3 /* AccessoryViews.swift */,
+				15BD59301D910BEE00646FC3 /* TileView.swift */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		15BD59271D91064C00646FC3 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				15BD592A1D9107D000646FC3 /* GameModel.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -198,7 +232,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				15BD59291D9106B200646FC3 /* NumberTileGame.swift in Sources */,
+				15BD59311D910BEE00646FC3 /* TileView.swift in Sources */,
+				15BD592F1D91092900646FC3 /* AccessoryViews.swift in Sources */,
+				15BD592D1D9107FA00646FC3 /* GameBoardView.swift in Sources */,
+				15BD592B1D9107D000646FC3 /* GameModel.swift in Sources */,
 				15BD59091D9105EE00646FC3 /* ViewController.swift in Sources */,
+				15BD59331D91114E00646FC3 /* AppearanceProvider.swift in Sources */,
 				15BD59071D9105EE00646FC3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
