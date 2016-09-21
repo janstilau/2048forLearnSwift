@@ -19,6 +19,7 @@
 		15BD592F1D91092900646FC3 /* AccessoryViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD592E1D91092900646FC3 /* AccessoryViews.swift */; };
 		15BD59311D910BEE00646FC3 /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD59301D910BEE00646FC3 /* TileView.swift */; };
 		15BD59331D91114E00646FC3 /* AppearanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD59321D91114E00646FC3 /* AppearanceProvider.swift */; };
+		15BD59351D9133E800646FC3 /* AuxiliaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15BD59341D9133E800646FC3 /* AuxiliaryModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		15BD592E1D91092900646FC3 /* AccessoryViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryViews.swift; sourceTree = "<group>"; };
 		15BD59301D910BEE00646FC3 /* TileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
 		15BD59321D91114E00646FC3 /* AppearanceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceProvider.swift; sourceTree = "<group>"; };
+		15BD59341D9133E800646FC3 /* AuxiliaryModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuxiliaryModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -126,6 +128,7 @@
 			isa = PBXGroup;
 			children = (
 				15BD592A1D9107D000646FC3 /* GameModel.swift */,
+				15BD59341D9133E800646FC3 /* AuxiliaryModels.swift */,
 			);
 			name = Models;
 			sourceTree = "<group>";
@@ -239,6 +242,7 @@
 				15BD592B1D9107D000646FC3 /* GameModel.swift in Sources */,
 				15BD59091D9105EE00646FC3 /* ViewController.swift in Sources */,
 				15BD59331D91114E00646FC3 /* AppearanceProvider.swift in Sources */,
+				15BD59351D9133E800646FC3 /* AuxiliaryModels.swift in Sources */,
 				15BD59071D9105EE00646FC3 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

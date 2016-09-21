@@ -126,7 +126,7 @@ class NumberTileGameViewController: UIViewController{
         board = gameboard
         view.addSubview(scoreView)
         self.scoreView = scoreView
-        
+//        
 //        assert(model != nil)
 //        let m = model!
 //        m.insertTileAtRandomLocation(2)

@@ -98,22 +98,95 @@ class GameBoardView: UIView{
         }
     }
     
+    func moveOneTile(from: (Int, Int), to: (Int, Int), value: Int) {
+        assert(positionIsValid(from) && positionIsValid(to))
+        let (fromRow, fromCol) = from
+        let (toRow, toCol) = to
+        let formKey = NSIndexPath.init(forRow: fromRow, inSection: fromCol)
+        let toKey = NSIndexPath.init(forRow: toRow, inSection: toCol)
+        
+        guard let tile = tiles[formKey] else{
+            assert(false, "placeholder error")
+        }
+        let endTile = tiles[toKey]
+        
+        var finalFrame = tile.frame
+        finalFrame.origin.x = tilePadding + CGFloat(toCol)*(tileWidth + tilePadding)
+        finalFrame.origin.y = tilePadding + CGFloat(toRow)*(tileWidth + tilePadding)
+        
+        tiles.removeValueForKey(formKey)
+        tiles[toKey] = tile
+        
+        let shouldPop = endTile != nil
+        UIView.animateWithDuration(perSquareSlideDuration, delay: 0.0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: { 
+            tile.frame = finalFrame
+            }) { (finish) in
+                tile.value = value
+                endTile?.removeFromSuperview()
+                if !shouldPop || !finish{
+                    return
+                }
+                
+            tile.layer.setAffineTransform(CGAffineTransformMakeScale(self.tileMergeStartScale, self.tileMergeStartScale))
+            UIView.animateWithDuration(self.tileMergeExpandTime, animations: { 
+                tile.layer.setAffineTransform(CGAffineTransformMakeScale(self.tilePopMaxScale, self.tilePopMaxScale))
+                }, completion: { (finish) in
+                    UIView.animateWithDuration(self.tileMergeContractTime, animations: { 
+                        tile.layer.setAffineTransform(CGAffineTransformIdentity)
+                    })
+            })
+        }
+}
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+    func moveTwoTiles( from: ((Int, Int), (Int, Int)), to: (Int, Int), value: Int){
+        
+        assert(positionIsValid(from.0) && positionIsValid(from.1) && positionIsValid(to))
+        let (fromRowA, fromColA) = from.0
+        let (fromRowB, fromColB) = from.1
+        let (toRow, toCol) = to
+        let fromKeyA = NSIndexPath(forRow: fromRowA, inSection: fromColA)
+        let fromKeyB = NSIndexPath(forRow: fromRowB, inSection: fromColB)
+        let toKey = NSIndexPath(forRow: toRow, inSection: toCol)
+        
+        guard let tileA = tiles[fromKeyA] else {
+            assert(false, "placeholder error")
+        }
+        guard let tileB = tiles[fromKeyB] else {
+            assert(false, "placeholder error")
+        }
+        var finalFrame = tileA.frame
+        finalFrame.origin.x = tilePadding + CGFloat(toCol)*(tileWidth + tilePadding)
+        finalFrame.origin.y = tilePadding + CGFloat(toRow)*(tileWidth + tilePadding)
+        
+        let oldTile = tiles[toKey]  // TODO: make sure this doesn't cause issues
+        oldTile?.removeFromSuperview()
+        tiles.removeValueForKey(fromKeyA)
+        tiles.removeValueForKey(fromKeyB)
+        tiles[toKey] = tileA
+        
+        
+        UIView.animateWithDuration(perSquareSlideDuration, delay: 0.0, options: UIViewAnimationOptions.BeginFromCurrentState, animations: { 
+            tileA.frame = finalFrame
+            tileB.frame = finalFrame
+        }) { finished in
+            tileA.value = value
+            tileB.removeFromSuperview()
+            if !finished {
+                return
+            }
+            tileA.layer.setAffineTransform(CGAffineTransformMakeScale(self.tileMergeStartScale, self.tileMergeStartScale))
+            // Pop tile
+            UIView.animateWithDuration(self.tileMergeExpandTime,
+                                       animations: {
+                                        tileA.layer.setAffineTransform(CGAffineTransformMakeScale(self.tilePopMaxScale, self.tilePopMaxScale))
+                },
+                                       completion: { finished in
+                                        // Contract tile to original size
+                                        UIView.animateWithDuration(self.tileMergeContractTime) {
+                                            tileA.layer.setAffineTransform(CGAffineTransformIdentity)
+                                        }
+            })
+        }
+
+    }
 }
