@@ -181,6 +181,35 @@ class GameboardView: UIView {
     }
     
     
+    /// Update the gameboard by inserting a tile in a given location. The tile will be inserted with a 'pop' animation.
+    func insertTile(pos: (Int, Int), value: Int) {
+        assert(positionIsValid(pos))
+        let (row, col) = pos
+        let x = tilePadding + CGFloat(col)*(tileWidth + tilePadding)
+        let y = tilePadding + CGFloat(row)*(tileWidth + tilePadding)
+        let r = (cornerRadius >= 2) ? cornerRadius - 2 : 0
+        let tile = TileView(position: CGPointMake(x, y), width: tileWidth, value: value, radius: r, delegate: provider)
+        tile.layer.setAffineTransform(CGAffineTransformMakeScale(tilePopStartScale, tilePopStartScale))
+        
+        addSubview(tile)
+        bringSubviewToFront(tile)
+        tiles[NSIndexPath(forRow: row, inSection: col)] = tile
+        
+        // Add to board
+        UIView.animateWithDuration(tileExpandTime, delay: tilePopDelay, options: UIViewAnimationOptions.TransitionNone,
+                                   animations: {
+                                    // Make the tile 'pop'
+                                    tile.layer.setAffineTransform(CGAffineTransformMakeScale(self.tilePopMaxScale, self.tilePopMaxScale))
+            },
+                                   completion: { finished in
+                                    // Shrink the tile after it 'pops'
+                                    UIView.animateWithDuration(self.titleContractTime, animations: { () -> Void in
+                                        tile.layer.setAffineTransform(CGAffineTransformIdentity)
+                                    })
+        })
+    }
+    
+    
 }
 
 
