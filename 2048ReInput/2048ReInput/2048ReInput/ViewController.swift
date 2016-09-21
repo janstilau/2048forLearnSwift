@@ -19,7 +19,17 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
+    
+    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
+        let tempView = ScoreView.init(backgroundColor: UIColor.redColor(), textColor: UIColor.blackColor(), font: UIFont.systemFontOfSize(11), radius: 2)
+        view.addSubview(tempView)
+    }
 
+    @IBAction func startNewGame(sender: AnyObject) {
+        
+        let game = NumberTileGameViewController(dimension: 5, threshold: 2048)
+        presentViewController(game, animated: true, completion: nil)
+    }
 
 }
 
