@@ -19,7 +19,7 @@ protocol ScoreViewProtocol {
 
 class ScoreView: UIView, ScoreViewProtocol {
     
-    let defaultFrame = CGRectMake(0, 0, 140, 140) // let 可以用作常量来表示,之前在OC里面要表示常量,只能用static const,或者设置属性,在初始化的时候,预先在初始化的函数里面填写预定义的值.由于在Swift里面,可以在定义的时候进行赋值,并且let表示const的含义,所以可以把let属性当做const常量使用.
+    let defaultFrame = CGRect(x: 0, y: 0, width: 140, height: 140) // let 可以用作常量来表示,之前在OC里面要表示常量,只能用static const,或者设置属性,在初始化的时候,预先在初始化的函数里面填写预定义的值.由于在Swift里面,可以在定义的时候进行赋值,并且let表示const的含义,所以可以把let属性当做const常量使用.
     
     var label: UILabel
     
@@ -33,7 +33,7 @@ class ScoreView: UIView, ScoreViewProtocol {
 //        layer.cornerRadius = r
 //        layer = CALayer.init()
         label = UILabel(frame: defaultFrame) // 首先初始化自己类引入的属性
-        label.textAlignment = NSTextAlignment.Center
+        label.textAlignment = NSTextAlignment.center
         super.init(frame: defaultFrame) //然后调用父类的desinatedInit方法
         backgroundColor = bgcolor // 然后,改变父类的属性
         label.textColor = tcolor

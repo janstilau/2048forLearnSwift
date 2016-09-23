@@ -20,15 +20,15 @@ class ViewController: UIViewController {
         // Dispose of any resources that can be recreated.
     }
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        let tempView = ScoreView.init(backgroundColor: UIColor.redColor(), textColor: UIColor.blackColor(), font: UIFont.systemFontOfSize(11), radius: 2)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        let tempView = ScoreView.init(backgroundColor: UIColor.red, textColor: UIColor.black, font: UIFont.systemFont(ofSize: 11), radius: 2)
         view.addSubview(tempView)
     }
 
-    @IBAction func startNewGame(sender: AnyObject) {
+    @IBAction func startNewGame(_ sender: AnyObject) {
         
         let game = NumberTileGameViewController(dimension: 5, threshold: 2048)
-        presentViewController(game, animated: true, completion: nil)
+        present(game, animated: true, completion: nil)
     }
 
 }

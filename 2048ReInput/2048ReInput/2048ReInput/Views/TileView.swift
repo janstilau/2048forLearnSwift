@@ -30,12 +30,12 @@ class TileView: UIView{
     // position是在boardView里面,更具tile在存放数据的数组的序列号,和boardView的宽高计算出来的,width也是一样的.delegate是在tileView的父视图,boardView中保存的.
     init(position: CGPoint, width: CGFloat, value: Int, radius: CGFloat, delegate d:AppearanceProviderProtocol){
         delegate = d
-        numberLabel = UILabel(frame: CGRectMake(0, 0, width, width))
-        numberLabel.textAlignment = NSTextAlignment.Center
+        numberLabel = UILabel(frame: CGRect(x: 0, y: 0, width: width, height: width))
+        numberLabel.textAlignment = NSTextAlignment.center
         numberLabel.minimumScaleFactor = 0.5
         numberLabel.font = delegate.fontForNumbers()
         
-        super.init(frame: CGRectMake(position.x, position.y, width, width))
+        super.init(frame: CGRect(x: position.x, y: position.y, width: width, height: width))
         addSubview(numberLabel)
         layer.cornerRadius = radius
         
