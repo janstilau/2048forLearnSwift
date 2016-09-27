@@ -22,8 +22,23 @@ class ScoreView: UIView, ScoreViewProtocol {
     let defaultFrame = CGRect.init(x: 0, y: 0, width: 140, height: 40)
     var label: UILabel
     
-    init(frame: CGRect) {
-        <#code#>
+    init(backgroundColor bgcolor: UIColor, textColor tcolor: UIColor, font: UIFont, radius r: CGFloat){
+        label = UILabel.init(frame: defaultFrame)
+        label.textAlignment = NSTextAlignment.center
+        super.init(frame: defaultFrame)
+        backgroundColor = bgcolor
+        label.textColor = tcolor
+        label.font = font
+        layer.cornerRadius = r
+        addSubview(label)
+    }
+    
+    required init(coder aDecoder: NSCoder) {
+        fatalError("NSCoding not supported")
+    }
+    
+    func scoreChanged(newScore s: Int) {
+        score = s
     }
     
 }

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		15104E651D9A908B008A63C1 /* GameboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15104E641D9A908B008A63C1 /* GameboardView.swift */; };
 		15E028B61D991A64001AA190 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E028B51D991A64001AA190 /* AppDelegate.swift */; };
 		15E028B81D991A64001AA190 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E028B71D991A64001AA190 /* ViewController.swift */; };
 		15E028BB1D991A64001AA190 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15E028B91D991A64001AA190 /* Main.storyboard */; };
@@ -16,6 +17,7 @@
 		15E028D71D991D91001AA190 /* TileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E028D61D991D91001AA190 /* TileView.swift */; };
 		15E028D91D991DFA001AA190 /* AppearanceProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E028D81D991DFA001AA190 /* AppearanceProvider.swift */; };
 		15E0290B1D9951C6001AA190 /* AccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0290A1D9951C6001AA190 /* AccessoryView.swift */; };
+		15E0290D1D9A358E001AA190 /* AuxiliaryModels.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E0290C1D9A358E001AA190 /* AuxiliaryModels.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -29,6 +31,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		15104E641D9A908B008A63C1 /* GameboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameboardView.swift; sourceTree = "<group>"; };
 		15E028B21D991A64001AA190 /* swift2048_THIRD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swift2048_THIRD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E028B51D991A64001AA190 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15E028B71D991A64001AA190 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -42,6 +45,7 @@
 		15E028D61D991D91001AA190 /* TileView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TileView.swift; sourceTree = "<group>"; };
 		15E028D81D991DFA001AA190 /* AppearanceProvider.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AppearanceProvider.swift; sourceTree = "<group>"; };
 		15E0290A1D9951C6001AA190 /* AccessoryView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AccessoryView.swift; sourceTree = "<group>"; };
+		15E0290C1D9A358E001AA190 /* AuxiliaryModels.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AuxiliaryModels.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -109,6 +113,8 @@
 				15E028D61D991D91001AA190 /* TileView.swift */,
 				15E0290A1D9951C6001AA190 /* AccessoryView.swift */,
 				15E028D81D991DFA001AA190 /* AppearanceProvider.swift */,
+				15E0290C1D9A358E001AA190 /* AuxiliaryModels.swift */,
+				15104E641D9A908B008A63C1 /* GameboardView.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -222,6 +228,8 @@
 				15E0290B1D9951C6001AA190 /* AccessoryView.swift in Sources */,
 				15E028D71D991D91001AA190 /* TileView.swift in Sources */,
 				15E028D91D991DFA001AA190 /* AppearanceProvider.swift in Sources */,
+				15E0290D1D9A358E001AA190 /* AuxiliaryModels.swift in Sources */,
+				15104E651D9A908B008A63C1 /* GameboardView.swift in Sources */,
 				15E028B61D991A64001AA190 /* AppDelegate.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -432,6 +440,7 @@
 				15E028D11D991A65001AA190 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		15E028D21D991A65001AA190 /* Build configuration list for PBXNativeTarget "swift2048_THIRDTests" */ = {
 			isa = XCConfigurationList;
@@ -440,6 +449,7 @@
 				15E028D41D991A65001AA190 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
