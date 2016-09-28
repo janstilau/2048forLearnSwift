@@ -96,9 +96,53 @@ class GameModel: NSObject{
     
     func insertTile(_ position: (Int, Int), value: Int){
         let (x, y) = position
-        if case .empty = gameboard[x, y]{
-            
+        if case .empty = gameboard[x, y]{  // wtf 下面是原始的写法,新语法
+            gameboard[x, y] = TileObject.tile(value)
+            delegate.insertTile(position, value: value)
         }
+    }
+    
+//    func insertTile(pos: (Int, Int), value: Int) {
+//        let (x, y) = pos
+//        switch gameboard[x, y] {
+//        case .Empty:
+//            gameboard[x, y] = TileObject.Tile(value)
+//            delegate.insertTile(pos, value: value)
+//        case .Tile:
+//            break
+//        }
+//    }
+    
+    
+    func gameboardEmptySpots() -> [(Int, Int)] {
+        var buffer: [(Int, Int)] = []
+        for i in 0..<dimension {
+            for j in 0..<dimension {
+                if case .empty = gameboard[i, j]{
+                    buffer += [(i, j)]
+                }
+            }
+        }
+        
+        return buffer
+    }
+    
+    func insertTileAtRandomLocation(_ value: Int){
+        let openSpots = gameboardEmptySpots()
+        if openSpots.isEmpty {
+            return
+        }
+        
+        let idx = Int(arc4random_uniform(UInt32(openSpots.count - 1)))
+        let (x, y) = openSpots[idx]
+        insertTile((x, y), value: value)
+    }
+    
+    func tileBelowHasSameValue(_ location: (Int,Int), _ value: Int) -> Bool {
+        let (x, y) = location
+        
+        
+        
     }
     
     
