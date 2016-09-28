@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		15104E651D9A908B008A63C1 /* GameboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15104E641D9A908B008A63C1 /* GameboardView.swift */; };
+		15D490841D9BEA0E00D06E07 /* GameModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15D490831D9BEA0E00D06E07 /* GameModel.swift */; };
 		15E028B61D991A64001AA190 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E028B51D991A64001AA190 /* AppDelegate.swift */; };
 		15E028B81D991A64001AA190 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 15E028B71D991A64001AA190 /* ViewController.swift */; };
 		15E028BB1D991A64001AA190 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 15E028B91D991A64001AA190 /* Main.storyboard */; };
@@ -32,6 +33,7 @@
 
 /* Begin PBXFileReference section */
 		15104E641D9A908B008A63C1 /* GameboardView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameboardView.swift; sourceTree = "<group>"; };
+		15D490831D9BEA0E00D06E07 /* GameModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameModel.swift; sourceTree = "<group>"; };
 		15E028B21D991A64001AA190 /* swift2048_THIRD.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = swift2048_THIRD.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		15E028B51D991A64001AA190 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		15E028B71D991A64001AA190 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -115,6 +117,7 @@
 				15E028D81D991DFA001AA190 /* AppearanceProvider.swift */,
 				15E0290C1D9A358E001AA190 /* AuxiliaryModels.swift */,
 				15104E641D9A908B008A63C1 /* GameboardView.swift */,
+				15D490831D9BEA0E00D06E07 /* GameModel.swift */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -229,6 +232,7 @@
 				15E028D71D991D91001AA190 /* TileView.swift in Sources */,
 				15E028D91D991DFA001AA190 /* AppearanceProvider.swift in Sources */,
 				15E0290D1D9A358E001AA190 /* AuxiliaryModels.swift in Sources */,
+				15D490841D9BEA0E00D06E07 /* GameModel.swift in Sources */,
 				15104E651D9A908B008A63C1 /* GameboardView.swift in Sources */,
 				15E028B61D991A64001AA190 /* AppDelegate.swift in Sources */,
 			);

@@ -58,7 +58,7 @@ enum MoveOrder {
     case doubleMoveOrder(firstSource: Int, secondSource: Int, destination: Int, value: Int)
 }
 
-
+// <T>T,在这个程序里面,初始化的时候填入了TileObject.empty,所以在setAll的时候,已经知道,T就是TileObject了,直接.empty就可以了
 struct SquareGameBoard<T> {
     
     let dimension: Int
