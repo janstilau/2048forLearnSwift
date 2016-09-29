@@ -140,15 +140,221 @@ class GameModel: NSObject{
     
     func tileBelowHasSameValue(_ location: (Int,Int), _ value: Int) -> Bool {
         let (x, y) = location
-        
-        
-        
+        guard y != dimension - 1 else {
+            return false
+        }
+        if case let .tile(v) = gameboard[x, y+1]{
+            return v == value
+        }
+        return false
     }
+    
+    func tileToRightHasSameValue(_ location: (Int, Int), _ value: Int) -> Bool {
+        let (x, y) = location
+        guard x != dimension - 1 else {
+            return false
+        }
+        if case let .tile(v) = gameboard[x+1, y]{
+            return v == value
+        }
+        return false
+    }
+    
+    func userHasLost() -> Bool {
+        guard gameboardEmptySpots().isEmpty else {
+            return false
+        }
+        
+        for i in 0..<dimension {
+            for j in 0..<dimension {
+                switch gameboard[i, j] {
+                case .empty:
+                    assert(false, "Gameboard reported isself as full, but we still found an empty tile, and this is a logic erre")
+                case let .tile(v):
+                    if tileBelowHasSameValue((i, j), v) || tileToRightHasSameValue((i, j), v){
+                        return false
+                    }
+                }
+            }
+        }
+        
+        return true
+    }
+    
+    func userHasWon() -> (Bool, (Int, Int)?) {
+        for i in 0..<dimension{
+            for j in 0..<dimension{
+                if case let .tile(v) = gameboard[i, j], v > threshold {
+                    return (true, (i, j))
+                }
+            }
+        }
+        
+        return (false ,nil)
+    }
+    
+    
     
     
     func performMove(_ direction: MoveDirection) -> Bool {
-        return true
+        
+        let coordinateGenerator: (Int) -> [(Int, Int)] = { (iteration) in
+            var buffer = Array<(Int, Int)>.init(repeating: (0, 0), count: self.dimension)
+            for i in 0..<self.dimension{
+                switch direction{
+                case .up: buffer[i] = (i, iteration)
+                case .down: buffer[i] = (self.dimension - i - 1, iteration)
+                case .left: buffer[i] = (iteration, i)
+                case .right: buffer[i] = (iteration, self.dimension - i - 1)
+                }
+            }
+            return buffer
+        }
+        
+        
+        var atLeastOneMove = false
+        for i in 0..<dimension{
+            let coords = coordinateGenerator(i)
+            let tiles = coords.map({ (c: (Int, Int)) -> TileObject in
+                let (x, y) = c
+                return self.gameboard[x, y]
+            })
+            
+            let orders = merge(tiles)// merge主要的合并的操作tiles是在某个方向上的,例如,右滑,就是第一行,第二行,在水平方向上的,从右向左的游戏块的数组,然后这个数组在merge里面合并最后返回一个MoveOrder的数组.根据这个数组里面的值进行数值的操作和view的变化.
+            atLeastOneMove = orders.count > 0 ? true : atLeastOneMove
+            
+            for object in orders{
+                switch object {
+                case let MoveOrder.singleMoveOrder(s, d, v, wasMerge):
+                    // Perform a single-tile move
+                    let (sx, sy) = coords[s]
+                    let (dx, dy) = coords[d]
+                    if wasMerge {
+                        score += v
+                    }
+                    gameboard[sx, sy] = TileObject.empty
+                    gameboard[dx, dy] = TileObject.tile(v)
+                    delegate.moveOneTile(coords[s], to: coords[d], value: v)
+                case let MoveOrder.doubleMoveOrder(s1, s2, d, v):
+                    // Perform a simultaneous two-tile move
+                    let (s1x, s1y) = coords[s1]
+                    let (s2x, s2y) = coords[s2]
+                    let (dx, dy) = coords[d]
+                    score += v
+                    gameboard[s1x, s1y] = TileObject.empty
+                    gameboard[s2x, s2y] = TileObject.empty
+                    gameboard[dx, dy] = TileObject.tile(v)
+                    delegate.moveTwoTiles((coords[s1], coords[s2]), to: coords[d], value: v)
+                }
+            }
+        }
+        return atLeastOneMove
     }
+    
+    func condense(_ group: [TileObject]) -> [ActionToken] {
+        var tokenBuffer = [ActionToken]()
+        for (idx, tile) in group.enumerated() {
+            // Go through all the tiles in 'group'. When we see a tile 'out of place', create a corresponding ActionToken.
+            switch tile {
+            case let .tile(value) where tokenBuffer.count == idx:
+                tokenBuffer.append(ActionToken.noAction(source: idx, value: value))
+            case let .tile(value):
+                tokenBuffer.append(ActionToken.move(source: idx, value: value))
+            default:
+                break
+            }
+        }
+        return tokenBuffer;
+    }
+    
+    class func quiescentTileStillQuiescent(_ inputPosition: Int, outputLength: Int, originalPosition: Int) -> Bool {
+        // Return whether or not a 'NoAction' token still represents an unmoved tile
+        return (inputPosition == outputLength) && (originalPosition == inputPosition)
+    }
+    
+    /// When computing the effects of a move upon a row of tiles, calculate and return an updated list of ActionTokens
+    /// corresponding to any merges that should take place. This method collapses adjacent tiles of equal value, but each
+    /// tile can take part in at most one collapse per move. For example, |[1][1][1][2][2]| will become |[2][1][4]|.
+    func collapse(_ group: [ActionToken]) -> [ActionToken] {
+        
+        
+        var tokenBuffer = [ActionToken]()
+        var skipNext = false
+        for (idx, token) in group.enumerated() {
+            if skipNext {
+                // Prior iteration handled a merge. So skip this iteration.
+                skipNext = false
+                continue
+            }
+            switch token {
+            case .singleCombine:
+                assert(false, "Cannot have single combine token in input")
+            case .doubleCombine:
+                assert(false, "Cannot have double combine token in input")
+            case let .noAction(s, v)
+                where (idx < group.count-1
+                    && v == group[idx+1].getValue()
+                    && GameModel.quiescentTileStillQuiescent(idx, outputLength: tokenBuffer.count, originalPosition: s)):
+                // This tile hasn't moved yet, but matches the next tile. This is a single merge
+                // The last tile is *not* eligible for a merge
+                let next = group[idx+1]
+                let nv = v + group[idx+1].getValue()
+                skipNext = true
+                tokenBuffer.append(ActionToken.singleCombine(source: next.getSource(), value: nv))
+            case let t where (idx < group.count-1 && t.getValue() == group[idx+1].getValue()):
+                // This tile has moved, and matches the next tile. This is a double merge
+                // (The tile may either have moved prevously, or the tile might have moved as a result of a previous merge)
+                // The last tile is *not* eligible for a merge
+                let next = group[idx+1]
+                let nv = t.getValue() + group[idx+1].getValue()
+                skipNext = true
+                tokenBuffer.append(ActionToken.doubleCombine(source: t.getSource(), second: next.getSource(), value: nv))
+            case let .noAction(s, v) where !GameModel.quiescentTileStillQuiescent(idx, outputLength: tokenBuffer.count, originalPosition: s):
+                // A tile that didn't move before has moved (first cond.), or there was a previous merge (second cond.)
+                tokenBuffer.append(ActionToken.move(source: s, value: v))
+            case let .noAction(s, v):
+                // A tile that didn't move before still hasn't moved
+                tokenBuffer.append(ActionToken.noAction(source: s, value: v))
+            case let .move(s, v):
+                // Propagate a move
+                tokenBuffer.append(ActionToken.move(source: s, value: v))
+            default:
+                // Don't do anything
+                break
+            }
+        }
+        return tokenBuffer
+    }
+    
+    /// When computing the effects of a move upon a row of tiles, take a list of ActionTokens prepared by the condense()
+    /// and convert() methods and convert them into MoveOrders that can be fed back to the delegate.
+    func convert(_ group: [ActionToken]) -> [MoveOrder] {
+        var moveBuffer = [MoveOrder]()
+        for (idx, t) in group.enumerated() {
+            switch t {
+            case let .move(s, v):
+                moveBuffer.append(MoveOrder.singleMoveOrder(source: s, destination: idx, value: v, wasMerge: false))
+            case let .singleCombine(s, v):
+                moveBuffer.append(MoveOrder.singleMoveOrder(source: s, destination: idx, value: v, wasMerge: true))
+            case let .doubleCombine(s1, s2, v):
+                moveBuffer.append(MoveOrder.doubleMoveOrder(firstSource: s1, secondSource: s2, destination: idx, value: v))
+            default:
+                // Don't do anything
+                break
+            }
+        }
+        return moveBuffer
+    }
+    
+    /// Given an array of TileObjects, perform a collapse and create an array of move orders.
+    func merge(_ group: [TileObject]) -> [MoveOrder] {
+        // Calculation takes place in three steps:
+        // 1. Calculate the moves necessary to produce the same tiles, but without any interstital space.
+        // 2. Take the above, and calculate the moves necessary to collapse adjacent tiles of equal value.
+        // 3. Take the above, and convert into MoveOrders that provide all necessary information to the delegate.
+        return convert(collapse(condense(group)))
+    }
+    
     
     
 }
